@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 public class Examples {
 	private static void numberChineseConverterEx1()
@@ -66,6 +67,22 @@ public class Examples {
 			throws UnsupportedEncodingException, FileNotFoundException, IOException, NumberRomanConverterException {
 		String result = NumberRomanConverter.fromInteger(12345678);
 		System.out.println(result);
+	}
+
+	public static void DateChineseConverterEx1() {
+		Date date = new Date();
+		String[] codes = DateChineseConverter.getCodesFromDate(date);
+
+		String dateString = "";
+		for (String code : codes) {
+			dateString += code;
+		}
+		System.out.println(dateString);
+		System.out.println(DateChineseConverter.translateCode(dateString));
+		System.out.println(DateChineseConverter.formatDate("Dt|AT'YMdH'|'msW'", date));
+
+		// for (int number = 0; number < 60; number++)
+		// System.out.println(number + " -> " + codeNumberWithin20(number));
 	}
 
 	public static void main(String[] args)
