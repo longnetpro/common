@@ -3,7 +3,7 @@ package info.longnetpro.common.util.generic;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateChineseConverter {
+public final class DateChineseConverter {
 	private static final String[] NAMES = new String[] { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "年",
 			"月", "日", "时", "分", "秒", "", /* "毫秒", */ "〇", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期天" };
 	private static final String INDEX = "0123456789TNYRSFMHOabcdefg"; // 一二三四五六七八九十〇年月日时分秒毫秒星期
@@ -18,7 +18,7 @@ public class DateChineseConverter {
 		return sdf.format(date);
 	}
 
-	private static String codeNumberWithin20(int number) {
+	public static String codeNumberWithin20(int number) {
 		if (number < 0 || number >= 60)
 			return null;
 		int num = number;
@@ -43,7 +43,7 @@ public class DateChineseConverter {
 		return u + "T" + (l == 0 ? "" : l);
 	}
 
-	private static String codeYear(Date date, boolean specialZero) {
+	public static String codeYear(Date date, boolean specialZero) {
 		String result = format("yyyy'N'", date);
 		if (specialZero) {
 			result = result.replace('0', 'O');
@@ -51,44 +51,44 @@ public class DateChineseConverter {
 		return result;
 	}
 
-	private static String formatDateNumber(Date date, String format, String suffixCode) {
+	public static String formatDateNumber(Date date, String format, String suffixCode) {
 		String numberString = format(format, date);
 		int number = Integer.parseInt(numberString);
 		return codeNumberWithin20(number) + suffixCode;
 	}
 
-	private static String codeMonth(Date date) {
+	public static String codeMonth(Date date) {
 		return formatDateNumber(date, "M", "Y");
 	}
 
-	private static String codeDay(Date date) {
+	public static String codeDay(Date date) {
 		return formatDateNumber(date, "d", "R");
 	}
 
-	private static String codeHour(Date date) {
+	public static String codeHour(Date date) {
 		return formatDateNumber(date, "H", "S");
 	}
 
-	private static String codeMinute(Date date) {
+	public static String codeMinute(Date date) {
 		return formatDateNumber(date, "m", "F");
 	}
 
-	private static String codeSecond(Date date) {
+	public static String codeSecond(Date date) {
 		return formatDateNumber(date, "s", "M");
 	}
 
-	private static String codeMillisecond(Date date) {
+	public static String codeMillisecond(Date date) {
 		return format("SSS'H'", date);
 	}
 
-	private static String codeWeekDay(Date date) {
+	public static String codeWeekDay(Date date) {
 		String wd = format("u", date);
 		int number = Integer.parseInt(wd);
 		char ch = (char) ('a' + number - 1);
 		return ch + "";
 	}
 
-	static String[] getCodesFromDate(Date date) {
+	public static String[] getCodesFromDate(Date date) {
 		String[] codes = new String[9];
 		codes[0] = codeYear(date, false);
 		codes[1] = codeYear(date, true);
@@ -102,7 +102,7 @@ public class DateChineseConverter {
 		return codes;
 	}
 
-	static String translateCode(String code) {
+	public static String translateCode(String code) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < code.length(); i++) {
 			char ch = code.charAt(i);

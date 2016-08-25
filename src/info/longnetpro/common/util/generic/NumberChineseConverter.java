@@ -1,6 +1,6 @@
 package info.longnetpro.common.util.generic;
 
-public class NumberChineseConverter {
+public final class NumberChineseConverter {
 	public static final String NUMBER_PATTERN = "^[+\\-]?(?:(?:\\d+(?:\\.\\d*)?)|(?:\\.\\d+))$";
 	
 	private static final char[] CHINESE_UNITS1 = new char[] { 'S', 'B', 'Q' };
@@ -15,7 +15,7 @@ public class NumberChineseConverter {
 	// 一二三四五六七八九十百千万亿正负点元角分整人民币〇
 	// 壹贰叁肆伍陆柒捌玖拾佰仟萬億正负点圆角分整人民币
 
-	static String normalizeNumber(String numberString) {
+	public static String normalizeNumber(String numberString) {
 		String result = numberString;
 		result = result.replaceAll("\\.$", "");
 		result = result.replaceAll("^([+\\-]?)0+", "$1");
@@ -98,7 +98,7 @@ public class NumberChineseConverter {
 		return intStr + decStr;
 	}
 
-	public static String codeMoneyString(String moneyString) throws NumberChineseConverterException {
+	public static String codeCurrencyString(String moneyString) throws NumberChineseConverterException {
 		if (moneyString == null || !moneyString.trim().matches(NUMBER_PATTERN)) {
 			throw new NumberChineseConverterException(
 					"Invalid Number: " + (moneyString == null ? "null" : moneyString.trim()));
@@ -196,8 +196,8 @@ public class NumberChineseConverter {
 		return formatNumber(number, false);
 	}
 
-	public static String formatMoney(String moneyString, boolean isLower) throws NumberChineseConverterException {
-		String s = codeMoneyString(moneyString);
+	public static String formatCurrency(String moneyString, boolean isLower) throws NumberChineseConverterException {
+		String s = codeCurrencyString(moneyString);
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
@@ -211,12 +211,12 @@ public class NumberChineseConverter {
 		return sb.toString();
 	}
 
-	public static String toMoneyLowerCase(String moneyString) throws NumberChineseConverterException {
-		return formatMoney(moneyString, true);
+	public static String toCurrencyLowerCase(String moneyString) throws NumberChineseConverterException {
+		return formatCurrency(moneyString, true);
 	}
 
-	public static String toMoneyUpperCase(String moneyString) throws NumberChineseConverterException {
-		return formatMoney(moneyString, false);
+	public static String toCurrencyUpperCase(String moneyString) throws NumberChineseConverterException {
+		return formatCurrency(moneyString, false);
 	}
 
 }

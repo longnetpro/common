@@ -1,6 +1,6 @@
 package info.longnetpro.common.util.generic;
 
-public class NumberRomanConverter {
+public final class NumberRomanConverter {
 	private static final String[] ROMANS = new String[] { "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D",
 			"CM", "M", "M(V)", "(V)", "M(X)" };
 	private static final int[] INTEGERS = new int[] { 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000, 4000, 5000,
