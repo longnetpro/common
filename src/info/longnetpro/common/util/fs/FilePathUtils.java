@@ -85,6 +85,9 @@ public class FilePathUtils {
 				}
 			} else if (p.startsWith(SEPARATOR)) {
 				// is root, start with /
+				if (p.charAt(2) == ':') { // start with "/X:"
+					return universalize(p.substring(1), separatorChar);
+				}
 				// p won't change
 				root = currentWorkingDrive();
 			} else if (p.length() >= 3 && p.substring(1, 3).equals(":/")) {
