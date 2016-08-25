@@ -16,16 +16,15 @@ public class FiscalDate {
 		return new FiscalDate();
 	}
 
-	public FiscalDate directBuild(int fYear, int fMonth) {
+	public void directBuild(int fYear, int fMonth) {
 		int m = normalizeMonth(fMonth);
 		int q = (m % 3 == 0) ? m / 3 : m / 3 + 1;
 		this.fiscalYear = fYear;
 		this.fiscalMonth = m;
 		this.fiscalQuarter = q;
-		return this;
 	}
 
-	public FiscalDate build(int year, int month, int day) {
+	public void build(int year, int month, int day) {
 		int offset = 0;
 
 		if (startMonthNumber > 1) {
@@ -44,20 +43,19 @@ public class FiscalDate {
 		this.fiscalYear = y;
 		this.fiscalMonth = m;
 		this.fiscalQuarter = q;
-		return this;
 	}
 
-	public FiscalDate build(int year, int month) {
-		return this.build(year, month, 1);
+	public void build(int year, int month) {
+		build(year, month, 1);
 	}
 
-	public FiscalDate build(int julianDate) {
+	public void build(int julianDate) {
 		DateTime dt = new DateTime();
 		dt.setJdeDateTime(julianDate, 0);
 		dt.complete();
 		int year = dt.getYear();
 		int month = dt.getMonth();
-		return build(year, month);
+		build(year, month);
 	}
 
 	public static int positiveModulus(int a, int b) {
@@ -73,7 +71,8 @@ public class FiscalDate {
 		FiscalDate fd = FiscalDate.create();
 		fd.setStartMonthInThisFiscalYear(startMonthInThisFiscalYear);
 		fd.setBorderMonth(monthNumber, isStartMonth);
-		return fd.build(year, month);
+		fd.build(year, month);
+		return fd;
 	}
 
 	public static FiscalDate fromCalendarDate(DateTime dateTime, int monthNumber, boolean isStartMonth) {
@@ -105,7 +104,7 @@ public class FiscalDate {
 
 	public static int getStartMonthFromJulianRange(int year, int startJulian, int endJulian) {
 		// if the result is positive, then start month is in Year year
-		// if the result is negtive, then start month is in previous year (end
+		// if the result is negative, then start month is in previous year (end
 		// month in this year)
 		// if the result is zero, means error.
 
